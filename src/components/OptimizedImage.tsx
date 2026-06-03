@@ -33,27 +33,9 @@ export function OptimizedImage({ showBlur, className = '', src, width, ...props 
 
   const handleLoad = () => setLoaded(true);
 
-  const imgEl = (
-    <img
-      key={imgSrc}
-      src={inView || isEager ? imgSrc : undefined}
-      className={`object-cover transition-opacity duration-500 ${
-        showBlur && !loaded ? 'opacity-0' : 'opacity-100'
-      } ${className}`}
-      onLoad={handleLoad}
-      onError={() => setLoaded(true)}
-      width={width}
-      {...props}
-    />
-  );
-
-  if (!showBlur || loaded) return imgEl;
-
-  const showPlaceholder = (inView || isEager);
-
   return (
     <div ref={containerRef} className={`relative overflow-hidden ${className}`}>
-      {showPlaceholder && !loaded && blurSrc && (
+      {showBlur && (inView || isEager) && !loaded && blurSrc && (
         <img
           src={blurSrc}
           alt=""
@@ -62,7 +44,16 @@ export function OptimizedImage({ showBlur, className = '', src, width, ...props 
           loading={props.loading}
         />
       )}
-      {imgEl}
+      <img
+        src={inView || isEager ? imgSrc : undefined}
+        className={`object-cover w-full h-full transition-opacity duration-500 ${
+          showBlur && !loaded ? 'opacity-0' : 'opacity-100'
+        }`}
+        onLoad={handleLoad}
+        onError={() => setLoaded(true)}
+        width={width}
+        {...props}
+      />
     </div>
   );
 }
