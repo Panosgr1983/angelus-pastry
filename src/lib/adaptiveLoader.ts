@@ -14,7 +14,6 @@ const DEFAULT_MAP: Record<string, string> = {
   'slow-2g': 'f_webp,q_auto:eco',
   '2g': 'f_webp,q_auto:eco',
   '3g': 'f_webp,q_auto:low',
-  '4g': 'f_auto,q_auto',
 };
 
 function getConnectionType(): string {
@@ -71,10 +70,10 @@ export function buildCloudinaryUrl(baseUrl: string, requestedWidth?: number): st
     let mode: string;
     if (connection in map) {
       mode = map[connection];
-    } else if (connection !== 'slow-2g' && connection !== '2g' && connection !== '3g' && isFastConnection()) {
-      mode = '';
+    } else if (connection in DEFAULT_MAP) {
+      mode = connection === '3g' && isFastConnection() ? '' : DEFAULT_MAP[connection]!;
     } else {
-      mode = DEFAULT_MAP[connection] ?? 'f_auto,q_auto';
+      mode = '';
     }
 
     if (mode === '') return baseUrl;
@@ -96,7 +95,7 @@ export function getCompressionModeForTier(tier: string): string {
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
     if (tier in map) return map[tier];
   } catch {}
-  return DEFAULT_MAP[tier] ?? 'f_auto,q_auto';
+  return DEFAULT_MAP[tier] ?? '';
 }
 
 export function setCompressionModeForTier(tier: string, mode: string): void {
