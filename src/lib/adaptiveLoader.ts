@@ -13,7 +13,7 @@ export const COMPRESSION_OPTIONS = [
 const DEFAULT_MAP: Record<string, string> = {
   'slow-2g': 'f_webp,q_auto:eco',
   '2g': 'f_webp,q_auto:eco',
-  '3g': 'f_auto,q_auto',
+  '3g': 'f_webp,q_auto:best',
 };
 
 function getConnectionType(): string {
