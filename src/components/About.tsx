@@ -8,10 +8,10 @@ import { OptimizedImage } from './OptimizedImage';
 // Φωτογραφίες καταστήματος για το carousel
 const storeImages = [
   'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/katastima-1.jpg',
-  'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832057/angelus/complete_logo.jpg',
-  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-01.jpg',
-  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-02.jpg',
-  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-03.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/pexels-2253643.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/pexels-2067396.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/pexels-1775043.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/complete_logo.jpg',
 ];
 
 export function About() {
@@ -38,7 +38,7 @@ export function About() {
                 <OptimizedImage
                   key={image}
                   src={image}
-                  alt={index === 0 ? 'Ο φούρνος και το κατάστημα του Angelus Bakery στο Γαλάτσι' : index === 1 ? 'Angelus Pastry & Bakery - Επίσημο λογότυπο' : `Χειροποίητα προϊόντα από τον φούρνο Angelus στο Γαλάτσι ${index + 1}`}
+                  alt={['Το κατάστημα Angelus Pastry & Bakery στο Γαλάτσι', 'Ο φούρνος μας – Παραδοσιακό ψωμί και αρτοσκευάσματα', 'Χειροποίητα γλυκά και ζαχαροπλαστική', 'Φρέσκα αρτοποιήματα κάθε μέρα', 'Angelus Pastry & Bakery – Επίσημο λογότυπο'][index]}
                   width={1200}
                   height={500}
                   className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
