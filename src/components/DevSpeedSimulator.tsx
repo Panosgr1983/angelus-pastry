@@ -55,8 +55,14 @@ export function DevSpeedSimulator() {
     window.location.reload();
   };
 
-  const handleModeChange = (tier: string, mode: string) => {
+  const handleModeChange = async (tier: string, mode: string) => {
     setCompressionModeForTier(tier, mode);
+    if (tier === current) {
+      setClearing(true);
+      postToSW({ clearCache: true });
+      await clearAllCaches();
+      window.location.reload();
+    }
   };
 
   const currentLabel = options.find((o) => o.value === current)?.label ?? '';
