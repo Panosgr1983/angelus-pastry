@@ -11,7 +11,7 @@ const storeImages = [
   'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/pexels-2253643.jpg',
   'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/pexels-2067396.jpg',
   'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/pexels-1775043.jpg',
-  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/complete_logo.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832057/angelus/complete_logo.jpg',
 ];
 
 export function About() {
