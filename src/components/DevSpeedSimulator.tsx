@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getSpeedTier, type SpeedTier } from '../lib/connectionMonitor';
-import { Gauge, RotateCcw, Trash2 } from 'lucide-react';
+import { COMPRESSION_OPTIONS, getCompressionModeForTier, setCompressionModeForTier } from '../lib/adaptiveLoader';
+import { Gauge, RotateCcw, Trash2, Image } from 'lucide-react';
 
 const STORAGE_KEY = 'angelus_speed_tier';
 
@@ -54,8 +55,11 @@ export function DevSpeedSimulator() {
     window.location.reload();
   };
 
+  const handleModeChange = (tier: string, mode: string) => {
+    setCompressionModeForTier(tier, mode);
+  };
+
   const currentLabel = options.find((o) => o.value === current)?.label ?? '';
-  const currentOption = options.find((o) => o.value === current);
 
   return (
     <div className="fixed top-20 right-4 z-[9999]">
@@ -70,7 +74,7 @@ export function DevSpeedSimulator() {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+        <div className="absolute top-full right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
           <div className="px-4 py-3 bg-emerald-50 border-b border-emerald-100">
             <p className="text-xs font-semibold text-emerald-800 flex items-center gap-2">
               <Gauge size={14} />
@@ -90,7 +94,7 @@ export function DevSpeedSimulator() {
                     : 'text-gray-700 hover:bg-gray-50'
                 }`}
               >
-                <span className="w-2 h-2 rounded-full ${tierColors[opt.value]} shrink-0" />
+                <span className={`w-2 h-2 rounded-full ${tierColors[opt.value]} shrink-0`} />
                 <span className="text-base">{opt.icon}</span>
                 <span>{opt.label}</span>
                 {current === opt.value && (
@@ -98,6 +102,47 @@ export function DevSpeedSimulator() {
                 )}
               </button>
             ))}
+          </div>
+
+          <div className="border-t border-gray-100" />
+
+          <div className="px-4 py-3 bg-indigo-50">
+            <p className="text-xs font-semibold text-indigo-800 flex items-center gap-2">
+              <Image size={14} />
+              Compression Modes ανά ταχύτητα
+            </p>
+          </div>
+
+          <div className="py-1">
+            {options.map((opt) => {
+              const mode = getCompressionModeForTier(opt.value);
+              const modeLabel = COMPRESSION_OPTIONS.find((m) => m.value === mode)?.label || 'Raw';
+              const modeDesc = COMPRESSION_OPTIONS.find((m) => m.value === mode)?.benchmark || '';
+              const isActive = current === opt.value;
+              return (
+                <div
+                  key={`mode-${opt.value}`}
+                  className={`flex items-center gap-2 px-4 py-2 ${isActive ? 'bg-indigo-50' : ''}`}
+                >
+                  <span className={`w-2 h-2 rounded-full ${tierColors[opt.value]} shrink-0`} />
+                  <span className="text-xs text-gray-500 w-20 shrink-0">{opt.label}</span>
+                  <select
+                    value={mode}
+                    onChange={(e) => handleModeChange(opt.value, e.target.value)}
+                    className={`flex-1 text-xs border rounded-lg px-2 py-1.5 bg-white ${
+                      isActive ? 'border-indigo-300 text-indigo-900 font-medium' : 'border-gray-200 text-gray-700'
+                    }`}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {COMPRESSION_OPTIONS.map((cm) => (
+                      <option key={cm.value} value={cm.value}>
+                        {cm.label} {cm.benchmark ? `(~${cm.benchmark})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              );
+            })}
           </div>
 
           <div className="border-t border-gray-100">
@@ -117,7 +162,7 @@ export function DevSpeedSimulator() {
 
           <div className="px-4 py-2 bg-gray-50 border-t border-gray-100">
             <p className="text-[10px] text-gray-400">
-              Το service worker παρεμβάλλει πραγματική καθυστέρηση στα requests εικόνων.
+              Speed = SW throttling. Compression = Cloudinary params per tier.
             </p>
           </div>
         </div>
