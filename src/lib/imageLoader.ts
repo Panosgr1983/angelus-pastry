@@ -6,5 +6,5 @@ function isCloudinary(url: string): boolean {
 
 export function buildFullUrl(url: string, _width: number): string {
   if (!isCloudinary(url)) return url;
-  return url.replace('/upload/', '/upload/f_auto,q_auto/');
+  return url.replace('/upload/', '/upload/w_auto,q_auto:low/');
 }
