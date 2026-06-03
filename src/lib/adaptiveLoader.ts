@@ -14,7 +14,7 @@ const DEFAULT_MAP: Record<string, string> = {
   'slow-2g': 'f_webp,q_auto:eco',
   '2g': 'f_webp,q_auto:eco',
   '3g': 'f_webp,q_auto:low',
-  '4g': 'f_webp,q_auto:good',
+  '4g': 'f_auto,q_auto',
 };
 
 function getConnectionType(): string {
@@ -26,11 +26,15 @@ function getConnectionType(): string {
   return '4g';
 }
 
+function isFastConnection(): boolean {
+  const conn = (navigator as any).connection;
+  return conn?.downlink >= 100 || conn?.type === 'ethernet';
+}
+
 function getAdaptiveWidth(requestedWidth: number): number {
   const connection = getConnectionType();
   const device = typeof window !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
   const viewport = typeof window !== 'undefined' ? window.innerWidth : 1200;
-  const maxWidth = Math.max(viewport, requestedWidth);
 
   let cap: number;
   switch (connection) {
@@ -63,9 +67,17 @@ export function buildCloudinaryUrl(baseUrl: string, requestedWidth?: number): st
   try {
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
     const connection = getConnectionType();
-    const mode = map[connection] || DEFAULT_MAP[connection];
 
-    if (mode === '' || !mode) return baseUrl;
+    let mode: string;
+    if (connection in map) {
+      mode = map[connection];
+    } else if (connection === '4g' && isFastConnection()) {
+      mode = '';
+    } else {
+      mode = DEFAULT_MAP[connection] ?? 'f_auto,q_auto';
+    }
+
+    if (mode === '') return baseUrl;
 
     const width = getAdaptiveWidth(requestedWidth || 400);
     return baseUrl.replace('/upload/', `/upload/w_${width},${mode}/`);
@@ -82,9 +94,9 @@ export function getBlurPlaceholderUrl(baseUrl: string): string {
 export function getCompressionModeForTier(tier: string): string {
   try {
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
-    if (map[tier]) return map[tier];
+    if (tier in map) return map[tier];
   } catch {}
-  return DEFAULT_MAP[tier] || 'f_webp,q_auto:good';
+  return DEFAULT_MAP[tier] ?? 'f_auto,q_auto';
 }
 
 export function setCompressionModeForTier(tier: string, mode: string): void {
