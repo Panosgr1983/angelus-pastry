@@ -10,7 +10,12 @@ export const COMPRESSION_OPTIONS = [
   { value: '', label: 'Raw', benchmark: '~162KB' },
 ];
 
-const DEFAULT_MAP: Record<string, string> = {};
+const DEFAULT_MAP: Record<string, string> = {
+  'slow-2g': 'f_webp,q_auto:eco',
+  '2g': 'f_webp,q_auto:eco',
+  '3g': 'f_webp,q_auto:low',
+  '4g': 'f_auto,q_auto',
+};
 
 function getConnectionType(): string {
   if (typeof navigator === 'undefined') return '4g';
@@ -19,6 +24,11 @@ function getConnectionType(): string {
   const conn = (navigator as any).connection;
   if (conn?.effectiveType) return conn.effectiveType;
   return '4g';
+}
+
+function isFastConnection(): boolean {
+  const conn = (navigator as any).connection;
+  return conn?.downlink >= 100 || conn?.type === 'ethernet';
 }
 
 function getAdaptiveWidth(requestedWidth: number): number {
@@ -58,7 +68,14 @@ export function buildCloudinaryUrl(baseUrl: string, requestedWidth?: number): st
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
     const connection = getConnectionType();
 
-    const mode = connection in map ? map[connection] : (DEFAULT_MAP[connection] ?? '');
+    let mode: string;
+    if (connection in map) {
+      mode = map[connection];
+    } else if (connection !== 'slow-2g' && connection !== '2g' && connection !== '3g' && isFastConnection()) {
+      mode = '';
+    } else {
+      mode = DEFAULT_MAP[connection] ?? 'f_auto,q_auto';
+    }
 
     if (mode === '') return baseUrl;
 
@@ -79,7 +96,7 @@ export function getCompressionModeForTier(tier: string): string {
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
     if (tier in map) return map[tier];
   } catch {}
-  return DEFAULT_MAP[tier] ?? '';
+  return DEFAULT_MAP[tier] ?? 'f_auto,q_auto';
 }
 
 export function setCompressionModeForTier(tier: string, mode: string): void {
