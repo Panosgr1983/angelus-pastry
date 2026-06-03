@@ -215,10 +215,14 @@ export function Hero() {
           {/* Image card με decorative rotate */}
           <div className="relative">
             <div className="absolute inset-0 bg-emerald-200 rounded-3xl transform rotate-6 transition-transform duration-700 hover:-rotate-6"></div>
-            <img
+            <OptimizedImage
               src="https://res.cloudinary.com/duvtwanvc/image/upload/angelus/hero/slide-01.jpg"
               alt="Φρέσκο χειροποίητο ψωμί από το Angelus Bakery στο Γαλάτσι"
-              className="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover transition-transform duration-700 hover:scale-105"
+              className="rounded-3xl shadow-2xl w-full h-[500px] transition-transform duration-700 hover:scale-105"
+              width={900}
+              height={500}
+              loading="lazy"
+              showBlur
             />
             <div className="absolute -bottom-6 -left-6 bg-white p-6 rounded-2xl shadow-xl transition-all duration-300 hover:scale-110 hover:shadow-2xl">
               <p className="text-4xl font-bold text-emerald-700">3+</p>
