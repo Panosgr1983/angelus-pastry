@@ -1,0 +1,5 @@
+# https://angeluspastry.gr
+User-agent: *
+Allow: /
+
+Sitemap: https://angeluspastry.gr/sitemap.xml
