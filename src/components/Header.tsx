@@ -21,9 +21,24 @@ export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  // Ανίχνευση scroll → toggle header state
+  // Ανίχνευση scroll → toggle header state with dead zone
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 50);
+    const THRESHOLD = 50;
+    const DEAD_ZONE = 15;
+    let ticking = false;
+
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const y = window.scrollY;
+          if (y > THRESHOLD + DEAD_ZONE) setScrolled(true);
+          else if (y < THRESHOLD - DEAD_ZONE) setScrolled(false);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
