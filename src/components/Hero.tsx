@@ -72,7 +72,7 @@ export function Hero() {
               className="w-full h-full"
               loading={index === 0 ? 'eager' : 'lazy'}
               fetchpriority={index === 0 ? 'high' : 'low'}
-              showBlur={false}
+              showBlur={index === 0}
             />
             <div className="absolute inset-0 z-20 flex items-center">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">

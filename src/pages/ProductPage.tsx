@@ -131,6 +131,7 @@ export function ProductPage() {
               loading="eager"
               fetchpriority="high"
               className="w-full rounded-3xl shadow-2xl"
+              showBlur
             />
             {product.featured && (
               <div className="absolute top-6 right-6 bg-emerald-600 text-white px-4 py-2 rounded-full font-medium shadow-lg">
