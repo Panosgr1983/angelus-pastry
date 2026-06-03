@@ -46,6 +46,12 @@ export function ProductsByCategory() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [categories, categoryFromUrl, setSearchParams]);
 
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [selectedCategory]);
+
   if (categoriesLoading || productsLoading) {
     return (
       <div className="flex justify-center items-center py-20">
@@ -53,12 +59,6 @@ export function ProductsByCategory() {
       </div>
     );
   }
-
-  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
-
-  useEffect(() => {
-    setVisibleCount(ITEMS_PER_PAGE);
-  }, [selectedCategory]);
 
   const filteredProducts = selectedCategory
     ? products.filter((p) => p.category_id === selectedCategory)
