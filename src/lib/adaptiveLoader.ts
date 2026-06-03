@@ -28,7 +28,7 @@ function getConnectionType(): string {
 
 function isFastConnection(): boolean {
   const conn = (navigator as any).connection;
-  return conn?.downlink >= 100 || conn?.type === 'ethernet';
+  return conn?.downlink >= 4 || conn?.type === 'ethernet';
 }
 
 function getAdaptiveWidth(requestedWidth: number): number {
