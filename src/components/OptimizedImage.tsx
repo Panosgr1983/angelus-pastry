@@ -37,7 +37,7 @@ export function OptimizedImage({ showBlur, className = '', src, width, ...props 
     <img
       key={imgSrc}
       src={inView || isEager ? imgSrc : undefined}
-      className={`transition-opacity duration-500 ${
+      className={`object-cover transition-opacity duration-500 ${
         showBlur && !loaded ? 'opacity-0' : 'opacity-100'
       } ${className}`}
       onLoad={handleLoad}
