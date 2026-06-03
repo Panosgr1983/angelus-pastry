@@ -63,15 +63,12 @@ export function buildCloudinaryUrl(baseUrl: string, requestedWidth?: number): st
   try {
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
     const connection = getConnectionType();
-    const mode = map[connection];
+    const mode = map[connection] || DEFAULT_MAP[connection];
 
-    if (mode === '') return baseUrl;
+    if (mode === '' || !mode) return baseUrl;
 
     const width = getAdaptiveWidth(requestedWidth || 400);
-    const transform = mode ? `w_${width},${mode}` : '';
-
-    if (!transform) return baseUrl;
-    return baseUrl.replace('/upload/', `/upload/${transform}/`);
+    return baseUrl.replace('/upload/', `/upload/w_${width},${mode}/`);
   } catch {
     return baseUrl;
   }
