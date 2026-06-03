@@ -9,9 +9,9 @@ import { OptimizedImage } from './OptimizedImage';
 const storeImages = [
   'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832053/angelus/katastima-1.png',
   'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832057/angelus/complete_logo.jpg',
-  '/images/about/about-01.jpg',
-  '/images/about/about-02.jpg',
-  '/images/about/about-03.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-01.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-02.jpg',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-03.jpg',
 ];
 
 export function About() {

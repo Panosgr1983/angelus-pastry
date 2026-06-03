@@ -409,18 +409,18 @@ const productImages: Record<string, string> = {
 
 const fallbackImages: Record<string, string> = {
   'sfoliates': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-sfoliates.jpg',
-  'sandwiches': '/images/fallback/sandwiches.jpg',
-  'koulouria': '/images/fallback/koulouria.jpg',
+  'sandwiches': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-sandwiches.jpg',
+  'koulouria': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-koulouria.jpg',
   'glyka-atomika': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-glyka-atomika.jpg',
   'cakes-tsourekia': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-cakes-tsourekia.jpg',
-  'kafedes': '/images/fallback/kafedes.jpg',
-  'donuts-muffins': '/images/fallback/donuts-muffins.jpg',
-  'bares': '/images/fallback/bares.jpg',
-  'voutimata': '/images/fallback/voutimata.jpg',
-  'kritsinia': '/images/fallback/kritsinia.jpg',
+  'kafedes': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-kafedes.jpg',
+  'donuts-muffins': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-donuts-muffins.jpg',
+  'bares': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-bares.jpg',
+  'voutimata': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-voutimata.jpg',
+  'kritsinia': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-kritsinia.jpg',
   'psomia': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/bread-image001.jpg',
-  'pagotinia': '/images/fallback/pagotinia.jpg',
-  'anapsyktika': '/images/fallback/anapsyktika.jpg',
+  'pagotinia': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-pagotinia.jpg',
+  'anapsyktika': 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/fallback-anapsyktika.jpg',
 };
 
 const breadCharacteristics = ["Φυσικό προζύμι", "Artisan ζύμωση", "Τραγανή κόρα", "Χειροποίητο"];

@@ -26,7 +26,7 @@ export function B2BPage() {
           className="absolute inset-0 bg-cover bg-center"
           style={{
             backgroundImage:
-              'url(/images/how-to-start-a-bakery.jpeg)',
+              'url(https://res.cloudinary.com/duvtwanvc/image/upload/angelus/bg/how-to-start-a-bakery.jpg)',
           }}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-emerald-900/85 to-emerald-800/70" />

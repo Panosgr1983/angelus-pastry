@@ -11,19 +11,19 @@ const slides = [
     badge: 'Κάθε Μέρα',
     title: 'Φρέσκο Ψωμί',
     subtitle: 'Παραδοσιακές συνταγές με προζύμι και αργής ωρίμανσης',
-    image: '/images/hero/slide-01.jpg',
+    image: 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/hero/slide-01.jpg',
   },
   {
     badge: 'Premium Ποιότητα',
     title: 'Χειροποίητα Γλυκά',
     subtitle: 'Τούρτες και γλυκά για κάθε περίσταση',
-    image: '/images/hero/slide-02.jpg',
+    image: 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/hero/slide-02.jpg',
   },
   {
     badge: 'Μοναδικές Γεύσεις',
     title: 'Ζαχαροπλαστική',
     subtitle: 'Τάρτες και εκλαίρ με φρέσκα υλικά',
-    image: '/images/hero/slide-03.jpg',
+    image: 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/hero/slide-03.jpg',
   },
   {
     badge: 'Για Όλη την Ημέρα',
@@ -216,7 +216,7 @@ export function Hero() {
           <div className="relative">
             <div className="absolute inset-0 bg-emerald-200 rounded-3xl transform rotate-6 transition-transform duration-700 hover:-rotate-6"></div>
             <img
-              src="/images/hero/slide-01.jpg"
+              src="https://res.cloudinary.com/duvtwanvc/image/upload/angelus/hero/slide-01.jpg"
               alt="Φρέσκο χειροποίητο ψωμί από το Angelus Bakery στο Γαλάτσι"
               className="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover transition-transform duration-700 hover:scale-105"
             />
