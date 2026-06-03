@@ -1,17 +1,13 @@
 const SPEED_KEY = 'angelus_speed_tier';
 const COMPRESSION_MAP_KEY = 'angelus_compression_map';
 
-export type QualityTier = 'eco' | 'low' | 'good' | 'best';
-
-export type CompressionMode = string;
-
 export const COMPRESSION_OPTIONS = [
-  { value: 'f_webp,q_auto:eco', label: 'WebP Eco', benchmark: '19KB' },
-  { value: 'f_webp,q_auto:low', label: 'WebP Low', benchmark: '20KB' },
-  { value: 'f_webp,q_auto:good', label: 'WebP Good', benchmark: '23KB' },
-  { value: 'f_webp,q_auto:best', label: 'WebP Best', benchmark: '29KB' },
-  { value: 'f_auto,q_auto', label: 'Auto', benchmark: '28KB' },
-  { value: '', label: 'Raw', benchmark: '81KB' },
+  { value: 'f_webp,q_auto:eco', label: 'WebP Eco', benchmark: '~17KB' },
+  { value: 'f_webp,q_auto:low', label: 'WebP Low', benchmark: '~20KB' },
+  { value: 'f_webp,q_auto:good', label: 'WebP Good', benchmark: '~28KB' },
+  { value: 'f_webp,q_auto:best', label: 'WebP Best', benchmark: '~38KB' },
+  { value: 'f_auto,q_auto', label: 'Auto', benchmark: '~28KB' },
+  { value: '', label: 'Raw', benchmark: '~162KB' },
 ];
 
 const DEFAULT_MAP: Record<string, string> = {
@@ -30,13 +26,60 @@ function getConnectionType(): string {
   return '4g';
 }
 
-export function getCompressionMode(): string {
+function getAdaptiveWidth(requestedWidth: number): number {
   const connection = getConnectionType();
+  const device = typeof window !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const viewport = typeof window !== 'undefined' ? window.innerWidth : 1200;
+  const maxWidth = Math.max(viewport, requestedWidth);
+
+  let cap: number;
+  switch (connection) {
+    case 'slow-2g':
+    case '2g':
+      cap = 300;
+      break;
+    case '3g':
+      cap = 500;
+      break;
+    case '4g':
+      cap = 800;
+      break;
+    default:
+      cap = 1200;
+      break;
+  }
+
+  if (device) {
+    cap = Math.min(cap, Math.max(viewport, 300));
+  }
+
+  return Math.min(requestedWidth, cap);
+}
+
+export function buildCloudinaryUrl(baseUrl: string, requestedWidth?: number): string {
+  const CLOUDINARY_BASE = 'https://res.cloudinary.com/duvtwanvc/image/upload';
+  if (!baseUrl.startsWith(CLOUDINARY_BASE)) return baseUrl;
+
   try {
     const map = JSON.parse(localStorage.getItem(COMPRESSION_MAP_KEY) || '{}');
-    if (map[connection]) return map[connection];
-  } catch {}
-  return DEFAULT_MAP[connection] || 'f_webp,q_auto:good';
+    const connection = getConnectionType();
+    const mode = map[connection];
+
+    if (mode === '') return baseUrl;
+
+    const width = getAdaptiveWidth(requestedWidth || 400);
+    const transform = mode ? `w_${width},${mode}` : '';
+
+    if (!transform) return baseUrl;
+    return baseUrl.replace('/upload/', `/upload/${transform}/`);
+  } catch {
+    return baseUrl;
+  }
+}
+
+export function getBlurPlaceholderUrl(baseUrl: string): string {
+  if (!baseUrl.includes('res.cloudinary.com')) return baseUrl;
+  return baseUrl.replace('/upload/', '/upload/w_30,e_blur:500,f_webp,q_auto:eco/');
 }
 
 export function getCompressionModeForTier(tier: string): string {
@@ -53,19 +96,4 @@ export function setCompressionModeForTier(tier: string, mode: string): void {
     map[tier] = mode;
     localStorage.setItem(COMPRESSION_MAP_KEY, JSON.stringify(map));
   } catch {}
-}
-
-export function buildCloudinaryUrl(baseUrl: string): string {
-  const CLOUDINARY_BASE = 'https://res.cloudinary.com/duvtwanvc/image/upload';
-  if (!baseUrl.startsWith(CLOUDINARY_BASE)) return baseUrl;
-
-  const mode = getCompressionMode();
-  if (!mode) return baseUrl;
-
-  return baseUrl.replace('/upload/', `/upload/${mode}/`);
-}
-
-export function getBlurPlaceholderUrl(baseUrl: string): string {
-  if (!baseUrl.includes('res.cloudinary.com')) return baseUrl;
-  return baseUrl.replace('/upload/', '/upload/w_30,e_blur:500,f_webp,q_auto:eco/');
 }
