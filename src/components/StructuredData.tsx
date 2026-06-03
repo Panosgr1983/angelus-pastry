@@ -13,7 +13,7 @@ const localBusiness = {
   url: 'https://angeluspastry.gr',
   telephone: '+302114180215',
   priceRange: '€',
-  servesCuisine: ['Ελληνική', 'French', 'Italian', 'Artisan Bakery'],
+  servesCuisine: ['Ελληνική', 'French', 'Italian'],
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Καββαδία 3 & Αρχιμήδους',

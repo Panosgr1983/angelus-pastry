@@ -13,8 +13,8 @@ export function HomePage() {
   return (
     <>
       <SEO
-        title="Artisan Bakery στο Γαλάτσι"
-        description="Φρέσκο χειροποίητο ψωμί, artisan sourdough, σφολιάτες, κουλούρια και γλυκά στο Γαλάτσι. Παράδοση & ποιότητα από το 2022. Παραγγελία στο 21 1418 0215."
+        title="Angelus Pastry & Bakery στο Γαλάτσι"
+        description="Φρέσκο χειροποίητο ψωμί, sourdough, σφολιάτες, κουλούρια και γλυκά στο Γαλάτσι. Παράδοση & ποιότητα από το 2022. Παραγγελία στο 21 1418 0215."
       />
       <Hero />
       <FeaturedProducts />
