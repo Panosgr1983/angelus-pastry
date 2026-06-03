@@ -29,7 +29,7 @@ const slides = [
     badge: 'Για Όλη την Ημέρα',
     title: 'Αλμυρές Λιχουδιές',
     subtitle: 'Τυρόψωμα και ελαιόψωμα με ελληνικά υλικά',
-    image: 'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832055/angelus/hero-food-image.png',
+    image: 'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/hero-food-image.jpg',
   },
 ];
 

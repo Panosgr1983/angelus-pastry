@@ -7,7 +7,7 @@ import { OptimizedImage } from './OptimizedImage';
 
 // Φωτογραφίες καταστήματος για το carousel
 const storeImages = [
-  'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832053/angelus/katastima-1.png',
+  'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/katastima-1.jpg',
   'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832057/angelus/complete_logo.jpg',
   'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-01.jpg',
   'https://res.cloudinary.com/duvtwanvc/image/upload/angelus/about/about-02.jpg',
