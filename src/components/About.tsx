@@ -3,6 +3,7 @@
 // ──────────────────────────────────────────────
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Users, Award, Clock, Heart } from 'lucide-react';
+import { OptimizedImage } from './OptimizedImage';
 
 // Φωτογραφίες καταστήματος για το carousel
 const storeImages = [
@@ -34,13 +35,16 @@ export function About() {
             <div className="absolute inset-0 bg-emerald-200 rounded-3xl transform -rotate-6"></div>
             <div className="relative rounded-3xl shadow-2xl w-full h-[500px] overflow-hidden">
               {storeImages.map((image, index) => (
-                <img
+                <OptimizedImage
                   key={image}
                   src={image}
                   alt={['Το κατάστημα Angelus Pastry & Bakery στο Γαλάτσι', 'Ο φούρνος μας – Παραδοσιακό ψωμί και αρτοσκευάσματα', 'Χειροποίητα γλυκά και ζαχαροπλαστική', 'Φρέσκα αρτοποιήματα κάθε μέρα', 'Angelus Pastry & Bakery – Επίσημο λογότυπο'][index]}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  width={1200}
+                  height={500}
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
                     index === activeImage ? 'opacity-100' : 'opacity-0'
                   }`}
+                  showBlur={false}
                 />
               ))}
             </div>

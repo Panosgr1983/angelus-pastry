@@ -10,11 +10,23 @@ export function OptimizedImage({ showBlur, className = '', src, width, ...props 
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(!showBlur);
   const [loaded, setLoaded] = useState(false);
-
-  const imgSrc = src ? buildFullUrl(String(src), Number(width) || 400) : src;
-  const blurSrc = src && showBlur ? getBlurPlaceholderUrl(String(src)) : null;
+  const [imgSrc, setImgSrc] = useState<string | undefined | null>(undefined);
+  const [blurSrc, setBlurSrc] = useState<string | null>(null);
 
   const isEager = props.loading === 'eager';
+
+  useEffect(() => {
+    try {
+      if (src) {
+        setImgSrc(buildFullUrl(String(src), Number(width) || 400));
+        if (showBlur) setBlurSrc(getBlurPlaceholderUrl(String(src)));
+      } else {
+        setImgSrc(src);
+      }
+    } catch {
+      setImgSrc(src as string);
+    }
+  }, [src, width, showBlur]);
 
   useEffect(() => {
     if (!showBlur || isEager || !containerRef.current) return;
