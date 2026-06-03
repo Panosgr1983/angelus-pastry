@@ -3,14 +3,15 @@
 // ──────────────────────────────────────────────
 import { useEffect, useState } from 'react';
 import { ChevronLeft, ChevronRight, Users, Award, Clock, Heart } from 'lucide-react';
+import { OptimizedImage } from './OptimizedImage';
 
 // Φωτογραφίες καταστήματος για το carousel
 const storeImages = [
   'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832053/angelus/katastima-1.png',
   'https://res.cloudinary.com/duvtwanvc/image/upload/v1779832057/angelus/complete_logo.jpg',
-  'https://images.pexels.com/photos/2253643/pexels-photo-2253643.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=1200',
-  'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1200',
+  '/images/about/about-01.jpg',
+  '/images/about/about-02.jpg',
+  '/images/about/about-03.jpg',
 ];
 
 export function About() {
@@ -34,13 +35,16 @@ export function About() {
             <div className="absolute inset-0 bg-emerald-200 rounded-3xl transform -rotate-6"></div>
             <div className="relative rounded-3xl shadow-2xl w-full h-[500px] overflow-hidden">
               {storeImages.map((image, index) => (
-                <img
+                <OptimizedImage
                   key={image}
                   src={image}
                   alt={index === 0 ? 'Ο φούρνος και το κατάστημα του Angelus Bakery στο Γαλάτσι' : index === 1 ? 'Angelus Pastry & Bakery - Επίσημο λογότυπο' : `Χειροποίητα προϊόντα από τον φούρνο Angelus στο Γαλάτσι ${index + 1}`}
-                  className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                  width={1200}
+                  height={500}
+                  className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ${
                     index === activeImage ? 'opacity-100' : 'opacity-0'
                   }`}
+                  showBlur={false}
                 />
               ))}
             </div>

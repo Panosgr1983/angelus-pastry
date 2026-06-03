@@ -1,22 +1,16 @@
-import { cloudinaryOptimize, cloudinarySrcset } from './cloudinary';
+const CLOUDINARY_BASE = 'https://res.cloudinary.com/duvtwanvc/image/upload';
 
-function isSlowConnection(): boolean {
-  if (typeof navigator === 'undefined') return false;
-  const conn = (navigator as any).connection;
-  if (!conn?.effectiveType) return false;
-  return ['slow-2g', '2g', '3g'].includes(conn.effectiveType);
+function isCloudinary(url: string): boolean {
+  return url.startsWith(CLOUDINARY_BASE);
 }
 
-export function adaptiveImage(url: string, width?: number): string {
-  if (isSlowConnection() && width) {
-    return cloudinaryOptimize(url, width);
-  }
-  return url;
+export function buildFullUrl(url: string, width: number): string {
+  if (!isCloudinary(url)) return url;
+  const w = Math.max(width, 40);
+  return url.replace('/upload/', `/upload/w_${w},q_auto:best,f_auto/`);
 }
 
-export function adaptiveSrcset(url: string, widths: number[]): string | undefined {
-  if (isSlowConnection()) {
-    return cloudinarySrcset(url, widths);
-  }
-  return undefined;
+export function buildTinyPreview(url: string): string | null {
+  if (!isCloudinary(url)) return null;
+  return url.replace('/upload/', `/upload/w_40,q_auto:low,f_auto/`);
 }

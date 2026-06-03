@@ -409,18 +409,18 @@ const productImages: Record<string, string> = {
 
 const fallbackImages: Record<string, string> = {
   'sfoliates': 'https://res.cloudinary.com/duvtwanvc/image/upload/v1779831600/angelus/fallback-sfoliates.png',
-  'sandwiches': 'https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg?auto=compress&cs=tinysrgb&w=900',
-  'koulouria': 'https://images.pexels.com/photos/6607235/pexels-photo-6607235.jpeg?auto=compress&cs=tinysrgb&w=900',
+  'sandwiches': '/images/fallback/sandwiches.jpg',
+  'koulouria': '/images/fallback/koulouria.jpg',
   'glyka-atomika': 'https://res.cloudinary.com/duvtwanvc/image/upload/v1779831600/angelus/fallback-glyka-atomika.png',
   'cakes-tsourekia': 'https://res.cloudinary.com/duvtwanvc/image/upload/v1779831600/angelus/fallback-cakes-tsourekia.png',
-  'kafedes': 'https://images.pexels.com/photos/302899/pexels-photo-302899.jpeg?auto=compress&cs=tinysrgb&w=900',
-  'donuts-muffins': 'https://images.pexels.com/photos/2067396/pexels-photo-2067396.jpeg?auto=compress&cs=tinysrgb&w=900',
-  'bares': 'https://images.pexels.com/photos/5437256/pexels-photo-5437256.jpeg?auto=compress&cs=tinysrgb&w=900',
-  'voutimata': 'https://images.pexels.com/photos/230325/pexels-photo-230325.jpeg?auto=compress&cs=tinysrgb&w=900',
-  'kritsinia': 'https://images.pexels.com/photos/4198017/pexels-photo-4198017.jpeg?auto=compress&cs=tinysrgb&w=900',
+  'kafedes': '/images/fallback/kafedes.jpg',
+  'donuts-muffins': '/images/fallback/donuts-muffins.jpg',
+  'bares': '/images/fallback/bares.jpg',
+  'voutimata': '/images/fallback/voutimata.jpg',
+  'kritsinia': '/images/fallback/kritsinia.jpg',
   'psomia': 'https://res.cloudinary.com/duvtwanvc/image/upload/v1779840144/angelus/bread-image001.png',
-  'pagotinia': 'https://images.pexels.com/photos/1352278/pexels-photo-1352278.jpeg?auto=compress&cs=tinysrgb&w=900',
-  'anapsyktika': 'https://images.pexels.com/photos/544961/pexels-photo-544961.jpeg?auto=compress&cs=tinysrgb&w=900',
+  'pagotinia': '/images/fallback/pagotinia.jpg',
+  'anapsyktika': '/images/fallback/anapsyktika.jpg',
 };
 
 const breadCharacteristics = ["Φυσικό προζύμι", "Artisan ζύμωση", "Τραγανή κόρα", "Χειροποίητο"];

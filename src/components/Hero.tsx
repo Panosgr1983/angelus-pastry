@@ -3,6 +3,7 @@
 // ──────────────────────────────────────────────
 import { useEffect, useState } from 'react';
 import { Award, ChefHat, ChevronLeft, ChevronRight, Heart } from 'lucide-react';
+import { OptimizedImage } from './OptimizedImage';
 
 // Slides δεδομένων με εικόνες, τίτλους, subtitles
 const slides = [
@@ -10,19 +11,19 @@ const slides = [
     badge: 'Κάθε Μέρα',
     title: 'Φρέσκο Ψωμί',
     subtitle: 'Παραδοσιακές συνταγές με προζύμι και αργής ωρίμανσης',
-    image: 'https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    image: '/images/hero/slide-01.jpg',
   },
   {
     badge: 'Premium Ποιότητα',
     title: 'Χειροποίητα Γλυκά',
     subtitle: 'Τούρτες και γλυκά για κάθε περίσταση',
-    image: 'https://images.pexels.com/photos/1702373/pexels-photo-1702373.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    image: '/images/hero/slide-02.jpg',
   },
   {
     badge: 'Μοναδικές Γεύσεις',
     title: 'Ζαχαροπλαστική',
     subtitle: 'Τάρτες και εκλαίρ με φρέσκα υλικά',
-    image: 'https://images.pexels.com/photos/2144112/pexels-photo-2144112.jpeg?auto=compress&cs=tinysrgb&w=1600',
+    image: '/images/hero/slide-03.jpg',
   },
   {
     badge: 'Για Όλη την Ημέρα',
@@ -63,13 +64,15 @@ export function Hero() {
             }`}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-10" />
-            <img
+            <OptimizedImage
               src={slide.image}
               alt={`${slide.title} από το Angelus Pastry & Bakery στο Γαλάτσι`}
-              className="w-full h-full object-cover"
+              width={1600}
+              height={700}
+              className="w-full h-full"
               loading={index === 0 ? 'eager' : 'lazy'}
-              fetchpriority={index === 0 ? 'high' : undefined}
-
+              fetchpriority={index === 0 ? 'high' : 'low'}
+              showBlur={false}
             />
             <div className="absolute inset-0 z-20 flex items-center">
               <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -213,7 +216,7 @@ export function Hero() {
           <div className="relative">
             <div className="absolute inset-0 bg-emerald-200 rounded-3xl transform rotate-6 transition-transform duration-700 hover:-rotate-6"></div>
             <img
-              src="https://images.pexels.com/photos/1775043/pexels-photo-1775043.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              src="/images/hero/slide-01.jpg"
               alt="Φρέσκο χειροποίητο ψωμί από το Angelus Bakery στο Γαλάτσι"
               className="relative rounded-3xl shadow-2xl w-full h-[500px] object-cover transition-transform duration-700 hover:scale-105"
             />

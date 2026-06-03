@@ -3,9 +3,11 @@
 // ──────────────────────────────────────────────
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useCategories, useProducts } from '../hooks/useProducts';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ChevronDown } from 'lucide-react';
 import { Link, useSearchParams } from 'react-router-dom';
-import { adaptiveImage, adaptiveSrcset } from '../lib/imageLoader';
+import { OptimizedImage } from './OptimizedImage';
+
+const ITEMS_PER_PAGE = 24;
 
 export function ProductsByCategory() {
   const { categories, loading: categoriesLoading } = useCategories();
@@ -52,9 +54,18 @@ export function ProductsByCategory() {
     );
   }
 
+  const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE);
+
+  useEffect(() => {
+    setVisibleCount(ITEMS_PER_PAGE);
+  }, [selectedCategory]);
+
   const filteredProducts = selectedCategory
     ? products.filter((p) => p.category_id === selectedCategory)
     : products;
+
+  const displayedProducts = filteredProducts.slice(0, visibleCount);
+  const hasMore = displayedProducts.length < filteredProducts.length;
 
   return (
     <section id="products" className="py-20 bg-gradient-to-br from-emerald-50 to-white">
@@ -115,22 +126,20 @@ export function ProductsByCategory() {
 
         {/* Product grid */}
         <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {filteredProducts.map((product) => (
+          {displayedProducts.map((product) => (
             <Link
               key={product.id}
               to={`/product/${product.id}`}
               className="animate-fade-in-up group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer relative"
             >
               <div className="relative overflow-hidden aspect-square">
-                <img
-                  src={adaptiveImage(product.image_url, 400)}
+                <OptimizedImage
+                  src={product.image_url}
                   alt={product.name}
                   width={400}
                   height={400}
-                  loading="lazy"
-                  srcSet={adaptiveSrcset(product.image_url, [200, 400, 600])}
-                  sizes={adaptiveSrcset(product.image_url, [200, 400, 600]) ? "(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw" : undefined}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-full transition-transform duration-500 group-hover:scale-110"
+                  showBlur={false}
                 />
                 {product.top && (
                   <div className="absolute top-2 right-2 bg-emerald-600 text-white px-2 py-1 rounded-full text-xs font-medium z-10">
@@ -148,6 +157,19 @@ export function ProductsByCategory() {
             </Link>
           ))}
         </div>
+
+        {/* Load More */}
+        {hasMore && (
+          <div className="text-center mt-10">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + ITEMS_PER_PAGE)}
+              className="inline-flex items-center gap-2 bg-emerald-700 hover:bg-emerald-800 text-white font-semibold py-3 px-8 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg"
+            >
+              <ChevronDown size={20} />
+              Φόρτωσε Περισσότερα ({filteredProducts.length - displayedProducts.length} ακόμα)
+            </button>
+          </div>
+        )}
 
         {filteredProducts.length === 0 && (
           <div className="text-center py-12">

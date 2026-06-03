@@ -13,6 +13,7 @@ import { ProductPage } from './pages/ProductPage';
 import { GDPRPage } from './pages/GDPRPage';
 import { B2BPage } from './pages/B2BPage';
 import { StructuredData } from './components/StructuredData';
+import { DevSpeedSimulator } from './components/DevSpeedSimulator';
 
 // Αυτόματο scroll στο hash μετά από πλοήγηση
 function ScrollToHash() {
@@ -36,6 +37,7 @@ function App() {
         <StructuredData />
         <ScrollToHash />
         <GoogleAnalyticsTracker />
+        {import.meta.env.DEV && <DevSpeedSimulator />}
         <div className="min-h-screen bg-white">
           <Header />
           <main>

@@ -8,7 +8,8 @@ import { ChevronLeft, ChevronRight, Tag } from 'lucide-react';
 import { getCategory, getProduct, getProductsByCategory } from '../hooks/useProducts';
 import { ProductCard } from '../components/ProductCard';
 import { Breadcrumbs } from '../components/Breadcrumbs';
-import { adaptiveImage, adaptiveSrcset } from '../lib/imageLoader';
+import { OptimizedImage } from '../components/OptimizedImage';
+import { buildFullUrl } from '../lib/imageLoader';
 
 export function ProductPage() {
   const { productId } = useParams<{ productId: string }>();
@@ -23,7 +24,7 @@ export function ProductPage() {
   useEffect(() => {
     relatedProducts.forEach((rp) => {
       const img = new Image();
-      img.src = adaptiveImage(rp.image_url, 600);
+      img.src = buildFullUrl(rp.image_url, 600);
     });
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId]);
@@ -110,7 +111,7 @@ export function ProductPage() {
         <link rel="canonical" href={`https://angeluspastry.gr/product/${product.id}`} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJson) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(productJson) }} />
-        <link rel="preload" as="image" href={adaptiveImage(product.image_url, 900)} />
+        <link rel="preload" as="image" href={buildFullUrl(product.image_url, 900)} />
       </Helmet>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Breadcrumbs items={[
@@ -122,15 +123,14 @@ export function ProductPage() {
         {/* Product details grid */}
         <div className="grid md:grid-cols-2 gap-12 mb-20">
           <div className="relative">
-            <img
-              src={adaptiveImage(product.image_url, 900)}
+            <OptimizedImage
+              src={product.image_url}
               alt={product.name}
               width={900}
               height={600}
               loading="eager"
-              srcSet={adaptiveSrcset(product.image_url, [600, 900, 1200])}
-              sizes={adaptiveSrcset(product.image_url, [600, 900, 1200]) ? "(max-width: 768px) 100vw, 50vw" : undefined}
-              className="w-full aspect-[3/2] md:aspect-auto md:h-[600px] object-cover rounded-3xl shadow-2xl"
+              fetchpriority="high"
+              className="w-full rounded-3xl shadow-2xl"
             />
             {product.featured && (
               <div className="absolute top-6 right-6 bg-emerald-600 text-white px-4 py-2 rounded-full font-medium shadow-lg">
